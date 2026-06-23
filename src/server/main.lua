@@ -66,6 +66,11 @@ RegisterNetEvent(EncodeEvent("AC:getNuiData"))
 RegisterNetEvent(EncodeEvent("AC:nuiEvent"))
 RegisterNetEvent(EncodeEvent("AC:heartbeat"))
 RegisterNetEvent(EncodeEvent("AC:heartbeatChallenge"))
+RegisterNetEvent(EncodeEvent("AC:getPlayers"))
+RegisterNetEvent(EncodeEvent("AC:getBans"))
+RegisterNetEvent(EncodeEvent("AC:unbanFromNui"))
+RegisterNetEvent(EncodeEvent("AC:kickFromNui"))
+RegisterNetEvent(EncodeEvent("AC:banFromNui"))
 
 AddEventHandler(EncodeEvent("AC:error"), function(msg, mod)
     if msg then
@@ -98,9 +103,60 @@ end)
 
 AddEventHandler(EncodeEvent("AC:getNuiData"), function()
     local src = source
+    local count = 0
+    for _ in pairs(EACS.connectedPlayers) do count = count + 1 end
+    local bans = GetAllBans()
     TriggerClientEvent(EncodeEvent("AC:setNuiData"), src, {
-        routingBucket = GetPlayerRoutingBucket(src)
+        routingBucket = GetPlayerRoutingBucket(src),
+        players       = count,
+        totalBans     = #bans,
     })
+end)
+
+RegisterNetEvent(EncodeEvent("AC:getPlayers"))
+AddEventHandler(EncodeEvent("AC:getPlayers"), function()
+    local src = source
+    if not HasAdminPermission(src) then return end
+    local list = {}
+    for pid, _ in pairs(EACS.connectedPlayers) do
+        local name = GetPlayerName(pid)
+        if name then
+            list[#list + 1] = { id = pid, name = name }
+        end
+    end
+    TriggerClientEvent(EncodeEvent("AC:playerList"), src, list)
+end)
+
+RegisterNetEvent(EncodeEvent("AC:getBans"))
+AddEventHandler(EncodeEvent("AC:getBans"), function()
+    local src = source
+    if not HasAdminPermission(src) then return end
+    local bans = GetAllBans()
+    TriggerClientEvent(EncodeEvent("AC:banList"), src, bans)
+end)
+
+RegisterNetEvent(EncodeEvent("AC:unbanFromNui"))
+AddEventHandler(EncodeEvent("AC:unbanFromNui"), function(banId)
+    local src = source
+    if not HasAdminPermission(src) then return end
+    RemoveBan(banId)
+    Log("INFO", ("Unbanned %s via admin panel by %s"):format(banId, GetPlayerName(src)))
+    local bans = GetAllBans()
+    TriggerClientEvent(EncodeEvent("AC:banList"), src, bans)
+end)
+
+RegisterNetEvent(EncodeEvent("AC:kickFromNui"))
+AddEventHandler(EncodeEvent("AC:kickFromNui"), function(targetId)
+    local src = source
+    if not HasAdminPermission(src) then return end
+    KickPlayer(targetId, "Admin kick", "Kicked via panel by " .. (GetPlayerName(src) or "?"))
+end)
+
+RegisterNetEvent(EncodeEvent("AC:banFromNui"))
+AddEventHandler(EncodeEvent("AC:banFromNui"), function(targetId)
+    local src = source
+    if not HasAdminPermission(src) then return end
+    BanPlayer(targetId, "Admin ban", "Banned via panel by " .. (GetPlayerName(src) or "?"))
 end)
 
 RegisterNetEvent("Anticheat:openMenu", function()

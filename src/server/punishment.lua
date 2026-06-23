@@ -239,6 +239,20 @@ function PunishPlayer(src, module, details)
     local cfg = Config.Modules[module]
     if not cfg then return end
 
+    local playerName = GetPlayerName(src) or "?"
+
+    for pid, _ in pairs(EACS.connectedPlayers) do
+        if IsPlayerAceAllowed(pid, "AdminMenu") then
+            TriggerClientEvent(EncodeEvent("AC:detectionNotify"), pid, {
+                player = playerName,
+                id     = src,
+                module = module,
+                reason = details or module,
+                type   = cfg.punishment or "WARN",
+            })
+        end
+    end
+
     Citizen.CreateThread(function()
         if cfg.punishment == PunishAction.BAN then
             BanPlayer(src, module, details)

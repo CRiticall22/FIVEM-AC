@@ -37,6 +37,49 @@ RegisterNuiCallback("nuiEvent", function(data, cb)
     TriggerServerEvent(EncodeEvent("AC:nuiEvent"), data)
 end)
 
+RegisterNuiCallback("getPlayers", function(_, cb)
+    cb({})
+    TriggerServerEvent(EncodeEvent("AC:getPlayers"))
+end)
+
+RegisterNuiCallback("getBans", function(_, cb)
+    cb({})
+    TriggerServerEvent(EncodeEvent("AC:getBans"))
+end)
+
+RegisterNuiCallback("unbanPlayer", function(data, cb)
+    cb({})
+    if data.banId then
+        TriggerServerEvent(EncodeEvent("AC:unbanFromNui"), data.banId)
+    end
+end)
+
+RegisterNuiCallback("kickPlayer", function(data, cb)
+    cb({})
+    if data.id then
+        TriggerServerEvent(EncodeEvent("AC:kickFromNui"), data.id)
+    end
+end)
+
+RegisterNuiCallback("banPlayer", function(data, cb)
+    cb({})
+    if data.id then
+        TriggerServerEvent(EncodeEvent("AC:banFromNui"), data.id)
+    end
+end)
+
+RegisterNetEvent(EncodeEvent("AC:playerList"), function(list)
+    SendNUIMessage({ playerList = list })
+end)
+
+RegisterNetEvent(EncodeEvent("AC:banList"), function(list)
+    SendNUIMessage({ banList = list })
+end)
+
+RegisterNetEvent(EncodeEvent("AC:detectionNotify"), function(det)
+    SendNUIMessage({ detection = det })
+end)
+
 RegisterNuiCallback("ready", function(_, cb)
     cb({})
     EAC.waitForConfig()
