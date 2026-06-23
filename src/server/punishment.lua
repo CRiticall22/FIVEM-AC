@@ -1,8 +1,10 @@
 local KVP_PREFIX = "eac_ban_"
 local punishCache = {}
 
+local _nativeGetPlayerIdentifiers = GetPlayerIdentifiers
+
 function GetPlayerIdentifiers(src)
-    local raw = GetPlayerIdentifiers(src)
+    local raw = _nativeGetPlayerIdentifiers(src)
     local ids = {}
     for i = 1, #raw do
         local parts = {}
