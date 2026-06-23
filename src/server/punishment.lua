@@ -204,6 +204,13 @@ function BanPlayer(src, reason, details)
     end)
 
     DropPlayer(src, Config.Messages.Ban:format(banId, reason))
+
+    if CascadingBanCheck then
+        Citizen.CreateThread(function()
+            Wait(1000)
+            CascadingBanCheck(info.identifiers)
+        end)
+    end
 end
 
 function KickPlayer(src, reason, details)
@@ -251,6 +258,13 @@ function PunishPlayer(src, module, details)
                 type   = cfg.punishment or "WARN",
             })
         end
+    end
+
+    if AddThreatScore then AddThreatScore(src, module) end
+
+    if IsShadowMode and IsShadowMode() then
+        if LogShadowDetection then LogShadowDetection(src, module, details) end
+        return
     end
 
     Citizen.CreateThread(function()

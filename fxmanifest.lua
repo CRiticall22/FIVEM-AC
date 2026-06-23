@@ -42,6 +42,9 @@ client_scripts {
     "src/client/modules/anti_explosions.lua",
     "src/client/modules/anti_field_of_view.lua",
     "src/client/modules/anti_chat_spam.lua",
+    "src/client/modules/anti_honeypot.lua",
+    "src/client/modules/anti_canary.lua",
+    "src/client/modules/anti_integrity.lua",
 }
 
 server_scripts {
@@ -58,4 +61,7 @@ server_scripts {
     "src/server/modules/damage_validation.lua",
     "src/server/modules/player_state.lua",
     "src/server/modules/admin_commands.lua",
+    "src/server/modules/threat_score.lua",
+    "src/server/modules/shadow_mode.lua",
+    "src/server/modules/cascading_ban.lua",
 }

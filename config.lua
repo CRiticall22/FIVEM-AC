@@ -97,6 +97,11 @@ Config.Modules = {
     antiEntityTakeover  = { enabled = true },
     antiResourceStop    = { enabled = true,  blacklist = {} },
     antiEventSpam       = { enabled = true,  max = 50, window = 10 },
+    antiHoneypot        = { enabled = true },
+    antiCanary          = { enabled = true },
+    antiIntegrity       = { enabled = true },
+    cascadingBan        = { enabled = true, autoBan = false },
+    shadowMode          = { enabled = false },
 }
 
 Config.Logs = {
