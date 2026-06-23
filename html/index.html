@@ -11,176 +11,301 @@
 <body>
     <div class="overlay" id="overlay"></div>
 
+    <div class="toast-container" id="toastContainer"></div>
+
     <div class="panel" id="panel">
+        <div class="panel-glow"></div>
+
         <div class="sidebar">
             <div class="sidebar-brand">
-                <div class="brand-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><circle cx="12" cy="17" r=".5"/></svg>
+                <div class="brand-logo">
+                    <div class="logo-ring"></div>
+                    <span class="logo-text">2F</span>
                 </div>
                 <div class="brand-text">
                     <span class="brand-name">2F4R</span>
-                    <span class="brand-ver">v2.0.0</span>
+                    <span class="brand-tag">ANTICHEAT</span>
                 </div>
             </div>
 
             <nav class="nav-list">
                 <button class="nav-item active" data-page="dashboard">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                    <div class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
                     <span>Dashboard</span>
+                    <div class="nav-indicator"></div>
                 </button>
                 <button class="nav-item" data-page="players">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <div class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
                     <span>Players</span>
+                    <span class="nav-badge" id="navPlayerCount">0</span>
                 </button>
                 <button class="nav-item" data-page="bans">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>
+                    <div class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></div>
                     <span>Bans</span>
+                    <span class="nav-badge red" id="navBanCount">0</span>
                 </button>
                 <button class="nav-item" data-page="detections">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+                    <div class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
                     <span>Detections</span>
+                    <span class="nav-badge yellow" id="navDetectionCount" style="display:none">0</span>
+                </button>
+                <button class="nav-item" data-page="threats">
+                    <div class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+                    <span>Threat Map</span>
                 </button>
                 <button class="nav-item" data-page="tools">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    <div class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
                     <span>Tools</span>
                 </button>
             </nav>
 
             <div class="sidebar-footer">
-                <div class="status-dot"></div>
-                <span>Protected</span>
+                <div class="shield-status">
+                    <div class="shield-ring active">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <div class="shield-info">
+                        <span class="shield-label">Shield Active</span>
+                        <span class="shield-sub" id="shieldUptime">0m uptime</span>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="main-content">
             <div class="topbar">
-                <h1 class="page-title" id="pageTitle">Dashboard</h1>
-                <button class="close-btn" id="closeBtn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                </button>
+                <div class="topbar-left">
+                    <h1 class="page-title" id="pageTitle">Dashboard</h1>
+                    <span class="page-subtitle" id="pageSubtitle">Real-time server overview</span>
+                </div>
+                <div class="topbar-right">
+                    <div class="server-ping">
+                        <div class="ping-dot"></div>
+                        <span id="serverPing">--ms</span>
+                    </div>
+                    <button class="topbar-btn" id="closeBtn" title="Close">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+                    </button>
+                </div>
             </div>
 
+            <!-- DASHBOARD -->
             <div class="page active" id="page-dashboard">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon blue">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                <div class="stats-row">
+                    <div class="stat-card" data-color="cyan">
+                        <div class="stat-glow"></div>
+                        <div class="stat-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                            <span class="stat-trend up">LIVE</span>
                         </div>
-                        <div class="stat-info">
-                            <span class="stat-value" id="statPlayers">0</span>
-                            <span class="stat-label">Online</span>
-                        </div>
+                        <span class="stat-value" id="statPlayers">0</span>
+                        <span class="stat-label">Players Online</span>
+                        <div class="stat-bar"><div class="stat-bar-fill" id="playerBar" style="width:0%"></div></div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon red">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>
+                    <div class="stat-card" data-color="red">
+                        <div class="stat-glow"></div>
+                        <div class="stat-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span class="stat-trend">ALL TIME</span>
                         </div>
-                        <div class="stat-info">
-                            <span class="stat-value" id="statBans">0</span>
-                            <span class="stat-label">Total Bans</span>
-                        </div>
+                        <span class="stat-value" id="statBans">0</span>
+                        <span class="stat-label">Total Bans</span>
+                        <div class="stat-bar"><div class="stat-bar-fill red" id="banBar" style="width:0%"></div></div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon yellow">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/></svg>
+                    <div class="stat-card" data-color="amber">
+                        <div class="stat-glow"></div>
+                        <div class="stat-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+                            <span class="stat-trend">SESSION</span>
                         </div>
-                        <div class="stat-info">
-                            <span class="stat-value" id="statDetections">0</span>
-                            <span class="stat-label">Detections</span>
-                        </div>
+                        <span class="stat-value" id="statDetections">0</span>
+                        <span class="stat-label">Detections</span>
+                        <div class="stat-bar"><div class="stat-bar-fill amber" id="detBar" style="width:0%"></div></div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon green">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    <div class="stat-card" data-color="green">
+                        <div class="stat-glow"></div>
+                        <div class="stat-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <span class="stat-trend up">RUNNING</span>
                         </div>
-                        <div class="stat-info">
-                            <span class="stat-value" id="statUptime">0m</span>
-                            <span class="stat-label">Uptime</span>
-                        </div>
+                        <span class="stat-value" id="statUptime">0m</span>
+                        <span class="stat-label">Uptime</span>
+                        <div class="stat-bar"><div class="stat-bar-fill green" style="width:100%"></div></div>
                     </div>
                 </div>
 
-                <div class="card-row">
-                    <div class="glass-card wide">
-                        <h3>Recent Activity</h3>
+                <div class="dash-grid">
+                    <div class="card activity-card">
+                        <div class="card-head">
+                            <h3>Live Activity Feed</h3>
+                            <span class="live-dot">LIVE</span>
+                        </div>
                         <div class="feed-list" id="dashboardFeed">
-                            <div class="feed-empty">No recent activity</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="page" id="page-players">
-                <div class="glass-card">
-                    <div class="card-header">
-                        <h3>Online Players</h3>
-                        <input type="text" class="search-input" id="playerSearch" placeholder="Search players..." />
-                    </div>
-                    <div class="player-list" id="playerList">
-                        <div class="feed-empty">Loading players...</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="page" id="page-bans">
-                <div class="glass-card">
-                    <div class="card-header">
-                        <h3>Ban Management</h3>
-                        <input type="text" class="search-input" id="banSearch" placeholder="Search by name or ID..." />
-                    </div>
-                    <div class="ban-list" id="banList">
-                        <div class="feed-empty">Loading bans...</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="page" id="page-detections">
-                <div class="glass-card">
-                    <div class="card-header">
-                        <h3>Detection Feed</h3>
-                        <button class="btn-small" id="clearFeed">Clear</button>
-                    </div>
-                    <div class="detection-feed" id="detectionFeed">
-                        <div class="feed-empty">Waiting for detections...</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="page" id="page-tools">
-                <div class="tools-grid">
-                    <div class="glass-card">
-                        <h3>Entity Control</h3>
-                        <div class="btn-group">
-                            <button class="tool-btn danger" id="deleteVehicles">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-                                Delete Vehicles
-                            </button>
-                            <button class="tool-btn danger" id="deletePeds">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                                Delete Peds
-                            </button>
-                            <button class="tool-btn danger" id="deleteObjects">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                                Delete Objects
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="glass-card">
-                        <h3>Admin Tools</h3>
-                        <div class="tool-row">
-                            <label>Routing Bucket</label>
-                            <div class="input-group">
-                                <input type="number" id="routingBucket" value="0" min="0" />
-                                <button class="btn-small" id="setBucket">Set</button>
+                            <div class="feed-empty">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                <span>All clear - no incidents</span>
                             </div>
                         </div>
-                        <div class="tool-row">
-                            <label>Admin ESP</label>
-                            <label class="toggle">
-                                <input type="checkbox" id="espToggle" />
-                                <span class="toggle-slider"></span>
-                            </label>
+                    </div>
+                    <div class="card modules-card">
+                        <div class="card-head">
+                            <h3>Module Status</h3>
+                            <span class="module-count" id="moduleCount">0 active</span>
+                        </div>
+                        <div class="module-grid" id="moduleGrid">
+                            <div class="module-pill active">Aimbot</div>
+                            <div class="module-pill active">Noclip</div>
+                            <div class="module-pill active">Godmode</div>
+                            <div class="module-pill active">Speed</div>
+                            <div class="module-pill active">Teleport</div>
+                            <div class="module-pill active">Weapons</div>
+                            <div class="module-pill active">Injection</div>
+                            <div class="module-pill active">Menu</div>
+                            <div class="module-pill active">Integrity</div>
+                            <div class="module-pill active">Honeypot</div>
+                            <div class="module-pill active">Canary</div>
+                            <div class="module-pill active">Heartbeat</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PLAYERS -->
+            <div class="page" id="page-players">
+                <div class="card">
+                    <div class="card-head">
+                        <h3>Online Players</h3>
+                        <div class="search-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="text" class="search-input" id="playerSearch" placeholder="Search players..." />
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="data-table" id="playerTable">
+                            <thead><tr><th>Player</th><th>ID</th><th>Ping</th><th>Threat</th><th>Actions</th></tr></thead>
+                            <tbody id="playerBody"><tr><td colspan="5" class="feed-empty">Loading...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BANS -->
+            <div class="page" id="page-bans">
+                <div class="card">
+                    <div class="card-head">
+                        <h3>Ban Management</h3>
+                        <div class="search-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="text" class="search-input" id="banSearch" placeholder="Search bans..." />
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="data-table" id="banTable">
+                            <thead><tr><th>Ban ID</th><th>Player</th><th>Reason</th><th>Date</th><th>Actions</th></tr></thead>
+                            <tbody id="banBody"><tr><td colspan="5" class="feed-empty">Loading...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DETECTIONS -->
+            <div class="page" id="page-detections">
+                <div class="card">
+                    <div class="card-head">
+                        <h3>Detection Feed</h3>
+                        <div class="card-head-actions">
+                            <select class="filter-select" id="detectionFilter">
+                                <option value="all">All Types</option>
+                                <option value="BAN">Bans</option>
+                                <option value="KICK">Kicks</option>
+                                <option value="WARN">Warns</option>
+                            </select>
+                            <button class="btn-ghost" id="clearFeed">Clear</button>
+                        </div>
+                    </div>
+                    <div class="detection-feed" id="detectionFeed">
+                        <div class="feed-empty">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                            <span>Monitoring for threats...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- THREAT MAP -->
+            <div class="page" id="page-threats">
+                <div class="card">
+                    <div class="card-head">
+                        <h3>Player Threat Levels</h3>
+                        <span class="threat-legend">
+                            <span class="tl-item"><span class="tl-dot low"></span>Low</span>
+                            <span class="tl-item"><span class="tl-dot med"></span>Medium</span>
+                            <span class="tl-item"><span class="tl-dot high"></span>High</span>
+                            <span class="tl-item"><span class="tl-dot crit"></span>Critical</span>
+                        </span>
+                    </div>
+                    <div class="threat-grid" id="threatGrid">
+                        <div class="feed-empty">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span>No threat data available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOOLS -->
+            <div class="page" id="page-tools">
+                <div class="tools-layout">
+                    <div class="card">
+                        <div class="card-head"><h3>Entity Control</h3></div>
+                        <div class="tool-buttons">
+                            <button class="tool-btn" id="deleteVehicles">
+                                <div class="tool-icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+                                <div class="tool-info"><span class="tool-name">Delete Vehicles</span><span class="tool-desc">Remove all spawned vehicles</span></div>
+                            </button>
+                            <button class="tool-btn" id="deletePeds">
+                                <div class="tool-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                                <div class="tool-info"><span class="tool-name">Delete Peds</span><span class="tool-desc">Remove all spawned peds</span></div>
+                            </button>
+                            <button class="tool-btn" id="deleteObjects">
+                                <div class="tool-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+                                <div class="tool-info"><span class="tool-name">Delete Objects</span><span class="tool-desc">Remove all spawned objects</span></div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-head"><h3>Admin Controls</h3></div>
+                        <div class="control-rows">
+                            <div class="control-row">
+                                <div class="control-info">
+                                    <span class="control-label">Routing Bucket</span>
+                                    <span class="control-desc">Isolate yourself</span>
+                                </div>
+                                <div class="input-group">
+                                    <input type="number" id="routingBucket" value="0" min="0" />
+                                    <button class="btn-accent" id="setBucket">Apply</button>
+                                </div>
+                            </div>
+                            <div class="control-row">
+                                <div class="control-info">
+                                    <span class="control-label">Admin ESP</span>
+                                    <span class="control-desc">See player positions</span>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" id="espToggle" />
+                                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                                </label>
+                            </div>
+                            <div class="control-row">
+                                <div class="control-info">
+                                    <span class="control-label">Shadow Mode</span>
+                                    <span class="control-desc">Log only, no punishments</span>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" id="shadowToggle" />
+                                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>

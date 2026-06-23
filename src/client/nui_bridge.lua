@@ -6,7 +6,7 @@ RegisterNetEvent("Anticheat:setMenuOpen", function(open)
     SendNUIMessage({ menuOpen = open })
 end)
 
-RegisterCommand("eac", function()
+RegisterCommand("2f4r", function()
     if not menuReady then return end
     if menuOpen then
         SendNUIMessage({ menuOpen = false })
