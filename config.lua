@@ -117,6 +117,7 @@ Config.Modules = {
     triggerDetection    = { enabled = true, punishment = PunishAction.BAN },
     jobLoopDetection    = { enabled = true, punishment = PunishAction.KICK },
     macroDetection      = { enabled = true, punishment = PunishAction.KICK },
+    antiDump            = { enabled = true },
 }
 
 Config.Logs = {

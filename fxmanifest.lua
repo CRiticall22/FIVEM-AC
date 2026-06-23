@@ -82,4 +82,5 @@ server_scripts {
     "src/server/modules/module_hotreload.lua",
     "src/server/modules/trigger_detection.lua",
     "src/server/modules/job_loop_detection.lua",
+    "src/server/modules/anti_dump.lua",
 }

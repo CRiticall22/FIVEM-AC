@@ -188,4 +188,5 @@ AC.runSafely(function()
     end
     AC.lastPosition = GetEntityCoords(PlayerPedId())
     AC.spawned = true
+    TriggerServerEvent(EncodeEvent("AC:playerSpawned"))
 end, "SpawnChecker")
