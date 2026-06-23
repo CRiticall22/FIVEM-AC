@@ -2,11 +2,11 @@ local speedDetections = 0
 local staminaDetections = 0
 local isOutOfStamina = false
 
-EAC.runPeriodically(1000, function()
+AC.runPeriodically(1000, function()
     local ped = PlayerPedId()
     local vehicle = GetVehiclePedIsUsing(ped)
 
-    if not EAC.isModuleEnabled(DetectionType.SPEED_CHANGER) then return end
+    if not AC.isModuleEnabled(DetectionType.SPEED_CHANGER) then return end
 
     if vehicle then
         if not (IsPedInAnyPlane(ped) or IsPedInAnyHeli(ped)) then
@@ -31,14 +31,14 @@ EAC.runPeriodically(1000, function()
             speedDetections = speedDetections + 1
             if speedDetections >= 2 then
                 speedDetections = 0
-                EAC.punish(DetectionType.SPEED_CHANGER, "Walk speed: " .. spd)
+                AC.punish(DetectionType.SPEED_CHANGER, "Walk speed: " .. spd)
             end
         else
             speedDetections = 0
         end
     end
 
-    if EAC.isModuleEnabled(DetectionType.STAMINA) then
+    if AC.isModuleEnabled(DetectionType.STAMINA) then
         local pedH = GetEntityHeightAboveGround(ped)
         if GetEntitySpeed(ped) > 7 and not vehicle
            and not IsPedFalling(ped) and not IsPedInParachuteFreeFall(ped)
@@ -48,13 +48,13 @@ EAC.runPeriodically(1000, function()
             local spd = #vector2(vel.x, vel.y)
             local norm = vector2(vel.x, vel.y) * 6 / spd
             SetEntityVelocity(ped, norm.x, norm.y, vel.z)
-            local remain = GetPlayerSprintStaminaRemaining(EAC.playerId)
+            local remain = GetPlayerSprintStaminaRemaining(AC.playerId)
             if remain == 0.0 then
                 if isOutOfStamina then
                     staminaDetections = staminaDetections + 1
                     if staminaDetections > 2 then
                         staminaDetections = 0
-                        EAC.punish(DetectionType.STAMINA, "Stamina hacks")
+                        AC.punish(DetectionType.STAMINA, "Stamina hacks")
                     end
                 end
                 isOutOfStamina = true

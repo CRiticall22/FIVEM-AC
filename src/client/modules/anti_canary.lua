@@ -9,7 +9,7 @@ end
 
 Citizen.CreateThread(function()
     Wait(10000)
-    EAC.waitForConfig()
+    AC.waitForConfig()
     if not Config.Modules.antiCanary or not Config.Modules.antiCanary.enabled then return end
 
     makeCanary("_money",      0)
@@ -31,7 +31,7 @@ Citizen.CreateThread(function()
     makeCanary("TriggerCheat",nil)
 end)
 
-EAC.runPeriodically(CANARY_CHECK, function()
+AC.runPeriodically(CANARY_CHECK, function()
     if not Config.Modules.antiCanary or not Config.Modules.antiCanary.enabled then return end
     if canaryTriggered then return end
 
@@ -40,7 +40,7 @@ EAC.runPeriodically(CANARY_CHECK, function()
         if current ~= original then
             canaryTriggered = true
             rawset(_G, name, original)
-            EAC.punish(DetectionType.INJECTOR, "Canary variable tampered: " .. name)
+            AC.punish(DetectionType.INJECTOR, "Canary variable tampered: " .. name)
             return
         end
     end

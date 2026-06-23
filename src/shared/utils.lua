@@ -41,5 +41,5 @@ function GenerateBanId()
         local idx = math.random(1, #chars)
         id = id .. chars:sub(idx, idx)
     end
-    return "EAC-" .. id
+    return "AC-" .. id
 end

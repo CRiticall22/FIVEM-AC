@@ -31,36 +31,36 @@ local blacklistedPickups = {
     joaat("PICKUP_WEAPON_HEAVYRIFLE"), joaat("PICKUP_PARACHUTE"),
 }
 
-EAC.registerModule("anti_blacklist", {
+AC.registerModule("anti_blacklist", {
     activate = function()
-        EAC.waitForConfig()
-        if EAC.isModuleEnabled(DetectionType.PICKUP) then
+        AC.waitForConfig()
+        if AC.isModuleEnabled(DetectionType.PICKUP) then
             for i = 1, #blacklistedPickups do
-                ToggleUsePickupsForPlayer(EAC.playerId, blacklistedPickups[i], false)
+                ToggleUsePickupsForPlayer(AC.playerId, blacklistedPickups[i], false)
             end
         end
     end,
 })
 
-EAC.runPeriodically(1000, function()
+AC.runPeriodically(1000, function()
     local ped = PlayerPedId()
 
-    if EAC.isModuleEnabled(DetectionType.PED_TASKS) then
+    if AC.isModuleEnabled(DetectionType.PED_TASKS) then
         for _, tid in ipairs(Config.BlacklistedTasks) do
             if GetIsTaskActive(ped, tid) then
                 ClearPedTasksImmediately(ped)
                 ClearPedTasks(ped)
                 ClearPedSecondaryTask(ped)
-                EAC.punish(DetectionType.PED_TASKS, "Blacklisted task: " .. tid)
+                AC.punish(DetectionType.PED_TASKS, "Blacklisted task: " .. tid)
             end
         end
     end
 
-    if EAC.isModuleEnabled(DetectionType.ANIMS) then
+    if AC.isModuleEnabled(DetectionType.ANIMS) then
         for _, anim in ipairs(Config.BlacklistedAnims) do
             if IsEntityPlayingAnim(ped, anim[1], anim[2], 3) then
                 ClearPedTasksImmediately(ped)
-                EAC.punish(DetectionType.ANIMS, "Blacklisted anim: " .. anim[1])
+                AC.punish(DetectionType.ANIMS, "Blacklisted anim: " .. anim[1])
             end
         end
     end
@@ -70,16 +70,16 @@ local blEvents = { "neweden_garage:pay", "projektsantos:mandathajs", "esx_dmvsch
 for _, ev in ipairs(blEvents) do
     RegisterNetEvent(ev)
     AddEventHandler(ev, function(amount)
-        if EAC.isModuleEnabled(DetectionType.MENU) then
+        if AC.isModuleEnabled(DetectionType.MENU) then
             if type(amount) == "number" and amount < 0 then
-                EAC.punish(DetectionType.MENU, "Negative pay event: " .. ev)
+                AC.punish(DetectionType.MENU, "Negative pay event: " .. ev)
             end
         end
     end)
 end
 
 AddEventHandler("gameEventTriggered", function(name, args)
-    if not EAC.active or not EAC.config then return end
+    if not AC.active or not AC.config then return end
     local ped = PlayerPedId()
     local pickupEvents = {
         ["CEventNetworkPlayerCollectedPickup"] = true,
@@ -87,11 +87,11 @@ AddEventHandler("gameEventTriggered", function(name, args)
         ["CEventNetworkPlayerCollectedPortablePickup"] = true,
     }
 
-    if EAC.isModuleEnabled(DetectionType.PICKUP) and pickupEvents[name] then
-        EAC.punish(DetectionType.PICKUP, "Collected a pickup")
+    if AC.isModuleEnabled(DetectionType.PICKUP) and pickupEvents[name] then
+        AC.punish(DetectionType.PICKUP, "Collected a pickup")
     end
 
-    if EAC.isModuleEnabled(DetectionType.WEAPON_SPOOFER)
+    if AC.isModuleEnabled(DetectionType.WEAPON_SPOOFER)
        and name == "CEventNetworkEntityDamage" then
         local victim, attacker = args[1], args[2]
         local wHash = args[4]
@@ -103,7 +103,7 @@ AddEventHandler("gameEventTriggered", function(name, args)
                    and attacker ~= victim and IsPedStill(ped) then
                     local d = #(GetEntityCoords(ped) - GetEntityCoords(attacker))
                     if d >= 10.0 then
-                        EAC.punish(DetectionType.WEAPON_SPOOFER, "Weapon spoofing")
+                        AC.punish(DetectionType.WEAPON_SPOOFER, "Weapon spoofing")
                     end
                 end
             end

@@ -14,7 +14,7 @@ local honeypotLocations = {
 }
 
 local function setupHoneypots()
-    EAC.waitForConfig()
+    AC.waitForConfig()
     if not Config.Modules.antiHoneypot or not Config.Modules.antiHoneypot.enabled then return end
 
     for _, pos in ipairs(honeypotLocations) do
@@ -30,7 +30,7 @@ Citizen.CreateThread(function()
     setupHoneypots()
 end)
 
-EAC.runPeriodically(HONEYPOT_CHECK_INTERVAL, function()
+AC.runPeriodically(HONEYPOT_CHECK_INTERVAL, function()
     if not Config.Modules.antiHoneypot or not Config.Modules.antiHoneypot.enabled then return end
     if #honeypots == 0 then return end
 
@@ -42,13 +42,13 @@ EAC.runPeriodically(HONEYPOT_CHECK_INTERVAL, function()
             local dist = #(coords - hp.pos)
 
             if dist < HONEYPOT_RADIUS then
-                if not IsScreenFadedOut() and EAC.spawned then
+                if not IsScreenFadedOut() and AC.spawned then
                     local _, groundZ = GetGroundZFor_3dCoord(hp.pos.x, hp.pos.y, hp.pos.z + 100.0, false)
                     local terrainDist = math.abs(coords.z - groundZ)
 
                     if terrainDist > 5.0 or not HasEntityClearLosToCoord(ped, hp.pos.x, hp.pos.y, hp.pos.z, 17) then
                         hp.triggered = true
-                        EAC.punish(DetectionType.MENU, "Honeypot triggered at hidden location (through wall/underground)")
+                        AC.punish(DetectionType.MENU, "Honeypot triggered at hidden location (through wall/underground)")
                     end
                 end
             end

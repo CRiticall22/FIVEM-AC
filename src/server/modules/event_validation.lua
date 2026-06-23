@@ -2,7 +2,7 @@ local particleTracker = {}
 local eventRateLimits = {}
 
 AddEventHandler("ptFxEvent", function(src)
-    if not EACS.active then return end
+    if not ACS.active then return end
     if not Config.Modules.antiParticles.enabled then return end
     if not particleTracker[src] then
         particleTracker[src] = { count = 0, time = os.time() }
@@ -19,7 +19,7 @@ AddEventHandler("ptFxEvent", function(src)
 end)
 
 AddEventHandler("giveWeaponEvent", function(src)
-    if not EACS.active then return end
+    if not ACS.active then return end
     if Config.Modules.antiAddWeapon.enabled then
         CancelEvent()
         PunishPlayer(src, DetectionType.ADD_WEAPON, "Tried to add weapon to player")
@@ -27,7 +27,7 @@ AddEventHandler("giveWeaponEvent", function(src)
 end)
 
 AddEventHandler("RemoveWeaponEvent", function(src)
-    if not EACS.active then return end
+    if not ACS.active then return end
     if Config.Modules.antiRemoveWeapon.enabled then
         if tonumber(src) and GetPlayerName(src) then
             CancelEvent()
@@ -37,7 +37,7 @@ AddEventHandler("RemoveWeaponEvent", function(src)
 end)
 
 AddEventHandler("RemoveAllWeaponsEvent", function(src)
-    if not EACS.active then return end
+    if not ACS.active then return end
     if Config.Modules.antiRemoveWeapon.enabled then
         CancelEvent()
         PunishPlayer(src, DetectionType.REMOVE_WEAPON, "Tried to remove all weapons from player")
@@ -48,7 +48,7 @@ Citizen.CreateThread(function()
     if not Config.Modules.antiTrigger.enabled then return end
     for _, eventName in ipairs(Config.Modules.antiTrigger.blacklist or {}) do
         RegisterNetEvent(eventName)
-        EACS.addHandler(AddEventHandler(eventName, function()
+        ACS.addHandler(AddEventHandler(eventName, function()
             CancelEvent()
             PunishPlayer(source, DetectionType.TRIGGER, "Blacklisted trigger: " .. eventName)
         end))
@@ -58,7 +58,7 @@ end)
 if GetResourceState("interact-sound") == "started" then
     AddEventHandler("InteractSound_SV:PlayWithinDistance", function(dist, file, vol)
         local src = source
-        if not EACS.active then return end
+        if not ACS.active then return end
         if not Config.Modules.antiPlaySound.enabled then return end
         local suspicious = {
             { 10000,  "handcuff" },

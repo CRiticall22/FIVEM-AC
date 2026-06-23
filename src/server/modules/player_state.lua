@@ -1,5 +1,5 @@
 AddEventHandler("playerConnecting", function(name, setKickReason, deferrals)
-    if not EACS.active then return end
+    if not ACS.active then return end
     local src = source
     deferrals.defer()
     Wait(0)
@@ -10,7 +10,7 @@ AddEventHandler("playerConnecting", function(name, setKickReason, deferrals)
         return
     end
 
-    if EACS.playerLicenses[ids.license] then
+    if ACS.playerLicenses[ids.license] then
         deferrals.done("Your identifiers are already in use on this server.")
         return
     end
@@ -53,22 +53,22 @@ AddEventHandler("playerJoining", function()
         return
     end
 
-    if EACS.playerLicenses[ids.license] then
+    if ACS.playerLicenses[ids.license] then
         Wait(0)
         DropPlayer(src, "Identifier already in use")
         return
     end
 
-    EACS.playerLicenses[ids.license] = true
+    ACS.playerLicenses[ids.license] = true
 end)
 
 AddEventHandler("playerDropped", function()
     local src = source
-    EACS.connectedPlayers[src] = nil
+    ACS.connectedPlayers[src] = nil
 
     local ids = GetPlayerIdentifiers(src)
     if ids and ids.license then
-        EACS.playerLicenses[ids.license] = nil
+        ACS.playerLicenses[ids.license] = nil
     end
 
     if Config.Logs.Console then
@@ -78,7 +78,7 @@ AddEventHandler("playerDropped", function()
 end)
 
 AddEventHandler("chatMessage", function(src, _, msg)
-    if not EACS.active then return end
+    if not ACS.active then return end
     if not Config.Modules.antiBlacklistWords.enabled then return end
     local lower = string.lower(msg)
     for _, word in ipairs(Config.Modules.antiBlacklistWords.blacklist or {}) do

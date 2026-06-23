@@ -248,7 +248,7 @@ function PunishPlayer(src, module, details)
 
     local playerName = GetPlayerName(src) or "?"
 
-    for pid, _ in pairs(EACS.connectedPlayers) do
+    for pid, _ in pairs(ACS.connectedPlayers) do
         if IsPlayerAceAllowed(pid, "AdminMenu") then
             TriggerClientEvent(EncodeEvent("AC:detectionNotify"), pid, {
                 player = playerName,

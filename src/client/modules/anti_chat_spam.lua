@@ -4,7 +4,7 @@ local WINDOW_MS = 3000
 local spamDetections = 0
 
 AddEventHandler("chatMessage", function(author, color, text)
-    if not EAC.active or not EAC.config then return end
+    if not AC.active or not AC.config then return end
 
     local now = GetGameTimer()
     chatHistory[#chatHistory + 1] = { time = now, text = text }
@@ -28,7 +28,7 @@ AddEventHandler("chatMessage", function(author, color, text)
             spamDetections = spamDetections + 1
             if spamDetections >= 2 then
                 spamDetections = 0
-                EAC.punish(DetectionType.MENU, "Chat spam detected")
+                AC.punish(DetectionType.MENU, "Chat spam detected")
             end
         end
     end

@@ -31,11 +31,11 @@ AddEventHandler("playerDropped", function()
     txAdminWhitelist[src] = nil
 end)
 
-RegisterCommand("eac_whitelist", function(src, args)
+RegisterCommand("ac_whitelist", function(src, args)
     if src ~= 0 and not HasAdminPermission(src) then return end
     local targetId = tonumber(args[1])
     if not targetId then
-        Log("WARN", "Usage: eac_whitelist <playerId>")
+        Log("WARN", "Usage: ac_whitelist <playerId>")
         return
     end
     ExecuteCommand(("add_ace identifier.license:%s %s allow"):format(
@@ -43,11 +43,11 @@ RegisterCommand("eac_whitelist", function(src, args)
     Log("INFO", "Whitelisted player " .. targetId)
 end, true)
 
-RegisterCommand("eac_unwhitelist", function(src, args)
+RegisterCommand("ac_unwhitelist", function(src, args)
     if src ~= 0 and not HasAdminPermission(src) then return end
     local targetId = tonumber(args[1])
     if not targetId then
-        Log("WARN", "Usage: eac_unwhitelist <playerId>")
+        Log("WARN", "Usage: ac_unwhitelist <playerId>")
         return
     end
     ExecuteCommand(("remove_ace identifier.license:%s %s allow"):format(

@@ -7,13 +7,13 @@ local invisDetections = 0
 local lastSavedPos
 local lastSavedVel
 
-EAC.runPeriodically(300, function()
+AC.runPeriodically(300, function()
     local ped = PlayerPedId()
     local coords = GetEntityCoords(ped)
     if not lastSavedPos then lastSavedPos = coords end
     local gFound, groundZ = GetGroundZFor_3dCoord(coords.x, coords.y, 99999.0, false)
 
-    if EAC.isModuleEnabled(DetectionType.UNDER_MAP) then
+    if AC.isModuleEnabled(DetectionType.UNDER_MAP) then
         if groundZ < 1000 then
             local vel = GetEntityVelocity(ped)
             local h   = GetEntityHeightAboveGround(ped)
@@ -30,7 +30,7 @@ EAC.runPeriodically(300, function()
         end
     end
 
-    if EAC.isModuleEnabled(DetectionType.NOCLIP) then
+    if AC.isModuleEnabled(DetectionType.NOCLIP) then
         local pedH = GetEntityHeightAboveGround(ped)
         local ignore = false
         if lastCoords then
@@ -41,7 +41,7 @@ EAC.runPeriodically(300, function()
         end
         if GetGameTimer() - lastNoClipTime < 6000 then ignore = true end
 
-        if not ignore and EAC.lastPosition and coords ~= EAC.lastPosition
+        if not ignore and AC.lastPosition and coords ~= AC.lastPosition
            and pedH > 3.0 and IsPedOnFoot(ped) and not IsPedJumpingOutOfVehicle(ped)
            and not IsPedClimbing(ped) and not IsPedRagdoll(ped)
            and not IsPedSwimming(ped) and GetGameTimer() - lastUnderMapCheck > 5000 then
@@ -66,7 +66,7 @@ EAC.runPeriodically(300, function()
                             if groundZ < 1000 then SetEntityCoords(ped, coords.x, coords.y, groundZ) end
                             if noClipDetections >= 2 then
                                 noClipDetections = 0
-                                EAC.punish(DetectionType.NOCLIP, "Noclip detected")
+                                AC.punish(DetectionType.NOCLIP, "Noclip detected")
                             end
                             break
                         end

@@ -30,7 +30,7 @@ function ClearShadowLog()
     shadowLog = {}
 end
 
-RegisterCommand("eac_shadow_log", function(src)
+RegisterCommand("ac_shadow_log", function(src)
     if src ~= 0 and not HasAdminPermission(src) then return end
     Log("INFO", ("%d shadow detections logged:"):format(#shadowLog))
     for _, e in ipairs(shadowLog) do
@@ -39,13 +39,13 @@ RegisterCommand("eac_shadow_log", function(src)
     end
 end, true)
 
-RegisterCommand("eac_shadow_clear", function(src)
+RegisterCommand("ac_shadow_clear", function(src)
     if src ~= 0 and not HasAdminPermission(src) then return end
     ClearShadowLog()
     Log("INFO", "Shadow log cleared")
 end, true)
 
-RegisterCommand("eac_shadow_ban_all", function(src)
+RegisterCommand("ac_shadow_ban_all", function(src)
     if src ~= 0 and not HasAdminPermission(src) then return end
     local banned = {}
     for _, e in ipairs(shadowLog) do

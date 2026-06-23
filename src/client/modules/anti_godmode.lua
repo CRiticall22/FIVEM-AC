@@ -1,7 +1,7 @@
 local godmodeDetections = 0
 
-EAC.runPeriodically(1000, function()
-    if not EAC.isModuleEnabled(DetectionType.GODMODE) then return end
+AC.runPeriodically(1000, function()
+    if not AC.isModuleEnabled(DetectionType.GODMODE) then return end
     local ped = PlayerPedId()
     local vehicle = GetVehiclePedIsUsing(ped)
 
@@ -13,17 +13,17 @@ EAC.runPeriodically(1000, function()
         godmodeDetections = godmodeDetections + 1
         if godmodeDetections > 3 then
             godmodeDetections = 0
-            EAC.punish(DetectionType.GODMODE, "Godmode")
+            AC.punish(DetectionType.GODMODE, "Godmode")
         end
     end
-    if (GetPlayerInvincible(EAC.playerId) or GetPlayerInvincible_2(EAC.playerId))
+    if (GetPlayerInvincible(AC.playerId) or GetPlayerInvincible_2(AC.playerId))
        and not IsEntityPositionFrozen(ped) then
         SetEntityInvincible(ped, false)
         SetEntityCanBeDamaged(ped, true)
         godmodeDetections = godmodeDetections + 1
         if godmodeDetections > 3 then
             godmodeDetections = 0
-            EAC.punish(DetectionType.GODMODE, "Godmode (invincible)")
+            AC.punish(DetectionType.GODMODE, "Godmode (invincible)")
         end
     end
     local bp, fp, ep, cp, mp, sp, p7, dp = GetEntityProofs(ped)
@@ -31,19 +31,19 @@ EAC.runPeriodically(1000, function()
         SetEntityProofs(ped, false, false, false, false, false, false, false, false)
     end
 
-    if EAC.isModuleEnabled(DetectionType.HEALTH) then
+    if AC.isModuleEnabled(DetectionType.HEALTH) then
         local health = GetEntityHealth(ped)
-        local cfg = EAC.getModuleConfig(DetectionType.HEALTH)
+        local cfg = AC.getModuleConfig(DetectionType.HEALTH)
         if health > (cfg.max or 200) then
-            EAC.punish(DetectionType.HEALTH, "Health: " .. health)
+            AC.punish(DetectionType.HEALTH, "Health: " .. health)
         end
     end
 
-    if EAC.isModuleEnabled(DetectionType.ARMOR) then
+    if AC.isModuleEnabled(DetectionType.ARMOR) then
         local armor = GetPedArmour(ped)
-        local cfg = EAC.getModuleConfig(DetectionType.ARMOR)
+        local cfg = AC.getModuleConfig(DetectionType.ARMOR)
         if armor > (cfg.max or 100) then
-            EAC.punish(DetectionType.ARMOR, "Armor: " .. armor)
+            AC.punish(DetectionType.ARMOR, "Armor: " .. armor)
         end
     end
 end, "AntiGodmode")

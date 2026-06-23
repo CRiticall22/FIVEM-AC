@@ -3,7 +3,7 @@ local resourceName = GetCurrentResourceName()
 AddEventHandler("onResourceStop", function(res)
     if res == resourceName then return end
 
-    if not EACS.active then return end
+    if not ACS.active then return end
     if not Config.Modules.antiResourceStop or not Config.Modules.antiResourceStop.enabled then return end
 
     local blacklisted = Config.Modules.antiResourceStop.blacklist or {}
@@ -26,7 +26,7 @@ Citizen.CreateThread(function()
     Wait(10000)
     while true do
         Wait(60000)
-        if not EACS.active then goto continue end
+        if not ACS.active then goto continue end
         if not Config.Modules.antiResourceStop or not Config.Modules.antiResourceStop.enabled then goto continue end
 
         for _, res in ipairs(Config.Modules.antiResourceStop.blacklist or {}) do

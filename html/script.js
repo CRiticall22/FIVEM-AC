@@ -1,6 +1,6 @@
 (() => {
     const getResource = () =>
-        typeof GetParentResourceName !== "undefined" ? GetParentResourceName() : "electronac";
+        typeof GetParentResourceName !== "undefined" ? GetParentResourceName() : "2f4r";
 
     const nui = async (event, data = {}) => {
         try {

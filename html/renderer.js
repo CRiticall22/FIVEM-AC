@@ -32,7 +32,7 @@
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#fff";
             ctx.font = "14px monospace";
-            ctx.fillText("ElectronAC Live View", 10, 20);
+            ctx.fillText("2F4R Live View", 10, 20);
             requestAnimationFrame(() => this._drawLoop());
         },
 
@@ -53,7 +53,7 @@
                         ctx.strokeRect(10, 10, w - 20, h - 20);
                         ctx.fillStyle = "#0f0";
                         ctx.font = "12px monospace";
-                        ctx.fillText("ElectronAC OCR Capture", 20, 30);
+                        ctx.fillText("2F4R OCR Capture", 20, 30);
                     }
 
                     if (opts.canvas) {

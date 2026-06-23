@@ -9,7 +9,7 @@ end)
 Citizen.CreateThread(function()
     while true do
         Wait(HEARTBEAT_INTERVAL)
-        if EAC.active and EAC.spawned then
+        if AC.active and AC.spawned then
             local ped = PlayerPedId()
             local coords = GetEntityCoords(ped)
             local health = GetEntityHealth(ped)

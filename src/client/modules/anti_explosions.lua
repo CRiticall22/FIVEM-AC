@@ -1,8 +1,8 @@
 local recentExplosions = {}
 local EXPLOSION_WINDOW = 5000
 
-EAC.runPeriodically(500, function()
-    if not EAC.isModuleEnabled(DetectionType.EXPLOSION) then return end
+AC.runPeriodically(500, function()
+    if not AC.isModuleEnabled(DetectionType.EXPLOSION) then return end
     local ped = PlayerPedId()
     local coords = GetEntityCoords(ped)
 

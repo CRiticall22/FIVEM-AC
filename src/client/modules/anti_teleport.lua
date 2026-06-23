@@ -2,8 +2,8 @@ local teleportPosList = {}
 local lastTeleportCheck
 local lastTeleportTime = 0
 
-EAC.runPeriodically(300, function()
-    if not EAC.isModuleEnabled(DetectionType.TELEPORT) then return end
+AC.runPeriodically(300, function()
+    if not AC.isModuleEnabled(DetectionType.TELEPORT) then return end
     local ped = PlayerPedId()
     local coords = GetEntityCoords(ped)
 
@@ -22,27 +22,27 @@ EAC.runPeriodically(300, function()
                 end
                 if unique >= 4 then
                     teleportPosList = {}
-                    EAC.punish(DetectionType.TELEPORT, "Teleport hacks")
+                    AC.punish(DetectionType.TELEPORT, "Teleport hacks")
                 end
             end
         end
     else
         teleportPosList = {}
     end
-    if IsPlayerDead(EAC.playerId) then teleportPosList = {} end
+    if IsPlayerDead(AC.playerId) then teleportPosList = {} end
     if GetGameTimer() - lastTeleportTime > 20000 then teleportPosList = {} end
     lastTeleportCheck = coords
 end, "AntiTeleport")
 
-EAC.runPeriodically(300, function()
-    if not EAC.isModuleEnabled(DetectionType.LICENSE_CLEAR) then return end
+AC.runPeriodically(300, function()
+    if not AC.isModuleEnabled(DetectionType.LICENSE_CLEAR) then return end
     if ForceSocialClubUpdate == nil then
-        EAC.punish(DetectionType.LICENSE_CLEAR, "License clear (social club)")
+        AC.punish(DetectionType.LICENSE_CLEAR, "License clear (social club)")
     end
     if ShutdownAndLaunchSinglePlayerGame == nil then
-        EAC.punish(DetectionType.LICENSE_CLEAR, "License clear (single player)")
+        AC.punish(DetectionType.LICENSE_CLEAR, "License clear (single player)")
     end
     if ActivateRockstarEditor == nil then
-        EAC.punish(DetectionType.LICENSE_CLEAR, "License clear (rockstar editor)")
+        AC.punish(DetectionType.LICENSE_CLEAR, "License clear (rockstar editor)")
     end
 end, "AntiLicenseClear")

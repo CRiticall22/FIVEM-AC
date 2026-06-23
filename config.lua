@@ -3,7 +3,7 @@ Config = {}
 Config.Debug = false
 
 Config.Branding = {
-    Name = "ElectronAC",
+    Name = "2F4R",
     Version = "2.0.0",
 }
 
@@ -12,7 +12,7 @@ Config.Discord = {
     KickWebhook      = "",
     WarnWebhook      = "",
     DetectionWebhook = "",
-    BotName          = "ElectronAC",
+    BotName          = "2F4R",
     BotAvatar        = "",
     Color = {
         Ban  = 16711680,
@@ -23,12 +23,12 @@ Config.Discord = {
 }
 
 Config.Messages = {
-    Kick = "[ElectronAC] You have been kicked.",
-    Ban  = "[ElectronAC] You have been permanently banned.\nBan ID: %s\nReason: %s",
+    Kick = "[2F4R] You have been kicked.",
+    Ban  = "[2F4R] You have been permanently banned.\nBan ID: %s\nReason: %s",
 }
 
 Config.Whitelist = {
-    AcePerm          = "electronac.bypass",
+    AcePerm          = "2f4r.bypass",
     WhitelistTxAdmin = true,
 }
 

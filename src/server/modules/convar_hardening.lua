@@ -8,7 +8,7 @@ Citizen.CreateThread(function()
     Wait(5000)
     while true do
         Wait(30000)
-        if not EACS.active then goto continue end
+        if not ACS.active then goto continue end
 
         for _, cv in ipairs(PROTECTED_CONVARS) do
             local cfg = Config.Modules[cv.module]

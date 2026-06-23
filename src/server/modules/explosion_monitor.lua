@@ -2,7 +2,7 @@ local explosionCounts = {}
 local nonSpamExplosions = { [13] = true, [30] = true }
 
 AddEventHandler("explosionEvent", function(src, data)
-    if not EACS.active then return end
+    if not ACS.active then return end
     if not Config.Modules.antiExplosion.enabled then return end
 
     local etype = Config.ExplosionTypes[data.explosionType]

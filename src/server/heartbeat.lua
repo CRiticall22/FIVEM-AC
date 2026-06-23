@@ -49,18 +49,18 @@ end)
 Citizen.CreateThread(function()
     while true do
         Wait(PING_INTERVAL)
-        if not EACS.active then goto continue end
+        if not ACS.active then goto continue end
 
         pingResponses = {}
         TriggerClientEvent(EncodeEvent("AC:ping"), -1)
         Wait(10000)
 
-        for pid, _ in pairs(EACS.connectedPlayers) do
+        for pid, _ in pairs(ACS.connectedPlayers) do
             if not pingResponses[pid] then
                 playerTimeouts[pid] = (playerTimeouts[pid] or 0) + 1
                 if playerTimeouts[pid] >= MAX_MISSED then
                     DropPlayer(pid, "Connection timeout")
-                    EACS.connectedPlayers[pid] = nil
+                    ACS.connectedPlayers[pid] = nil
                 end
             else
                 playerTimeouts[pid] = math.max((playerTimeouts[pid] or 0) - 1, 0)
@@ -74,10 +74,10 @@ end)
 Citizen.CreateThread(function()
     while true do
         Wait(HEARTBEAT_TIMEOUT)
-        if not EACS.active then goto continue end
+        if not ACS.active then goto continue end
 
         local now = os.time()
-        for pid, _ in pairs(EACS.connectedPlayers) do
+        for pid, _ in pairs(ACS.connectedPlayers) do
             local hb = playerHeartbeats[pid]
             if hb and (now - hb.time) > (HEARTBEAT_TIMEOUT / 1000) * 2 then
                 Log("WARN", ("Player %s heartbeat stale (%ds ago)"):format(
@@ -95,5 +95,5 @@ AddEventHandler("playerDropped", function()
     playerTimeouts[src] = nil
     heartbeatTokens[src] = nil
     pingResponses[src] = nil
-    EACS.connectedPlayers[src] = nil
+    ACS.connectedPlayers[src] = nil
 end)

@@ -1,10 +1,10 @@
-EACS = EACS or {}
+ACS = ACS or {}
 
-EACS.active = false
-EACS.connectedPlayers = {}
-EACS.playerLicenses = {}
-EACS.isolationBucket = math.random(1200, 1300)
-EACS.eventHandlers = {}
+ACS.active = false
+ACS.connectedPlayers = {}
+ACS.playerLicenses = {}
+ACS.isolationBucket = math.random(1200, 1300)
+ACS.eventHandlers = {}
 
 local whitelistedPeds = {}
 local blacklistedWeapons = {}
@@ -12,20 +12,20 @@ local blacklistedVehicles = {}
 local pedWhitelistModels = {}
 local objectWhitelistModels = { [2116969379] = true, [1336576410] = true, [148511758] = true }
 
-SetRoutingBucketEntityLockdownMode(EACS.isolationBucket, "strict")
+SetRoutingBucketEntityLockdownMode(ACS.isolationBucket, "strict")
 
-function EACS.addHandler(handler)
-    EACS.eventHandlers[#EACS.eventHandlers + 1] = handler
+function ACS.addHandler(handler)
+    ACS.eventHandlers[#ACS.eventHandlers + 1] = handler
 end
 
-function EACS.clearHandlers()
-    for _, h in pairs(EACS.eventHandlers) do
+function ACS.clearHandlers()
+    for _, h in pairs(ACS.eventHandlers) do
         RemoveEventHandler(h)
     end
-    EACS.eventHandlers = {}
+    ACS.eventHandlers = {}
 end
 
-function EACS.loadConfigTables()
+function ACS.loadConfigTables()
     for _, model in ipairs(Config.Modules.antiVehicle.blacklist or {}) do
         blacklistedVehicles[joaat(model)] = true
     end
@@ -41,7 +41,7 @@ function EACS.loadConfigTables()
     end
 end
 
-function EACS.getClientConfig()
+function ACS.getClientConfig()
     return {
         modules = Config.Modules,
         blacklistedWeapons = blacklistedWeapons,
@@ -49,11 +49,11 @@ function EACS.getClientConfig()
     }
 end
 
-function EACS.getBlacklistedVehicles() return blacklistedVehicles end
-function EACS.getPedWhitelistModels() return pedWhitelistModels end
-function EACS.getObjectWhitelistModels() return objectWhitelistModels end
-function EACS.getWhitelistedPeds() return whitelistedPeds end
-function EACS.getBlacklistedWeapons() return blacklistedWeapons end
+function ACS.getBlacklistedVehicles() return blacklistedVehicles end
+function ACS.getPedWhitelistModels() return pedWhitelistModels end
+function ACS.getObjectWhitelistModels() return objectWhitelistModels end
+function ACS.getWhitelistedPeds() return whitelistedPeds end
+function ACS.getBlacklistedWeapons() return blacklistedWeapons end
 
 RegisterNetEvent(EncodeEvent("AC:punishFromClient"))
 RegisterNetEvent(EncodeEvent("AC:checkJumping"))
@@ -85,9 +85,9 @@ AddEventHandler(EncodeEvent("AC:requestInit"), function()
         Whitelisted = IsPlayerWhitelisted(src),
     }
     TriggerClientEvent(EncodeEvent("AC:setPermissions"), src, perms, Config.Debug)
-    TriggerClientEvent(EncodeEvent("AC:setConfig"), src, EACS.getClientConfig())
-    TriggerClientEvent(EncodeEvent("AC:setActive"), src, EACS.active)
-    EACS.connectedPlayers[src] = true
+    TriggerClientEvent(EncodeEvent("AC:setConfig"), src, ACS.getClientConfig())
+    TriggerClientEvent(EncodeEvent("AC:setActive"), src, ACS.active)
+    ACS.connectedPlayers[src] = true
 end)
 
 local playerPeers = {}
@@ -104,7 +104,7 @@ end)
 AddEventHandler(EncodeEvent("AC:getNuiData"), function()
     local src = source
     local count = 0
-    for _ in pairs(EACS.connectedPlayers) do count = count + 1 end
+    for _ in pairs(ACS.connectedPlayers) do count = count + 1 end
     local bans = GetAllBans()
     TriggerClientEvent(EncodeEvent("AC:setNuiData"), src, {
         routingBucket = GetPlayerRoutingBucket(src),
@@ -118,7 +118,7 @@ AddEventHandler(EncodeEvent("AC:getPlayers"), function()
     local src = source
     if not HasAdminPermission(src) then return end
     local list = {}
-    for pid, _ in pairs(EACS.connectedPlayers) do
+    for pid, _ in pairs(ACS.connectedPlayers) do
         local name = GetPlayerName(pid)
         if name then
             list[#list + 1] = { id = pid, name = name }
@@ -185,12 +185,12 @@ local originalNetworkedSounds = GetConvar("sv_enableNetworkedSounds", "false")
 local originalRequestControl  = GetConvar("sv_filterRequestControl", "4")
 local originalPhoneExplosions = GetConvar("sv_enableNetworkedPhoneExplosions", "false")
 
-function EACS.activate()
-    if EACS.active then return end
-    EACS.active = true
+function ACS.activate()
+    if ACS.active then return end
+    ACS.active = true
     Log("INFO", "Anticheat activated")
-    EACS.loadConfigTables()
-    EACS.clearHandlers()
+    ACS.loadConfigTables()
+    ACS.clearHandlers()
 
     TriggerClientEvent(EncodeEvent("AC:setActive"), -1, true)
 
@@ -205,9 +205,9 @@ function EACS.activate()
     end
 end
 
-function EACS.deactivate()
-    if not EACS.active then return end
-    EACS.active = false
+function ACS.deactivate()
+    if not ACS.active then return end
+    ACS.active = false
     Log("INFO", "Anticheat deactivated")
 
     SetConvar("sv_enableNetworkedSounds", originalNetworkedSounds)
@@ -215,17 +215,17 @@ function EACS.deactivate()
     SetConvar("sv_enableNetworkedPhoneExplosions", originalPhoneExplosions)
 
     TriggerClientEvent(EncodeEvent("AC:setActive"), -1, false)
-    EACS.clearHandlers()
+    ACS.clearHandlers()
 end
 
 AddEventHandler("onResourceStop", function(resource)
     if resource == GetCurrentResourceName() then
-        EACS.deactivate()
+        ACS.deactivate()
     end
 end)
 
 Citizen.CreateThread(function()
     Log("INFO", ("v%s starting..."):format(Config.Branding.Version))
     Wait(2000)
-    EACS.activate()
+    ACS.activate()
 end)

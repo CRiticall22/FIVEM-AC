@@ -1,7 +1,7 @@
 function CascadingBanCheck(bannedIdentifiers)
     if not Config.Modules.cascadingBan or not Config.Modules.cascadingBan.enabled then return end
 
-    for pid, _ in pairs(EACS.connectedPlayers) do
+    for pid, _ in pairs(ACS.connectedPlayers) do
         local ids = GetPlayerIdentifiers(pid)
         if ids then
             local shared = {}
@@ -39,7 +39,7 @@ function CascadingBanCheck(bannedIdentifiers)
                     BanPlayer(pid, "Cascading ban",
                         "Shares identifiers with banned player: " .. table.concat(shared, ", "))
                 else
-                    for adminPid, _ in pairs(EACS.connectedPlayers) do
+                    for adminPid, _ in pairs(ACS.connectedPlayers) do
                         if IsPlayerAceAllowed(adminPid, "AdminMenu") then
                             TriggerClientEvent(EncodeEvent("AC:detectionNotify"), adminPid, {
                                 player = name,

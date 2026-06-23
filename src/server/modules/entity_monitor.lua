@@ -3,7 +3,7 @@ local pedTracker     = {}
 local objectTracker  = {}
 
 AddEventHandler("entityCreating", function(entity)
-    if not EACS.active then return end
+    if not ACS.active then return end
 
     local entityType = GetEntityType(entity)
     local owner      = NetworkGetFirstEntityOwner(entity)
@@ -17,9 +17,9 @@ AddEventHandler("entityCreating", function(entity)
 
     if popType ~= 7 and popType ~= 0 then return end
 
-    local blVehicles = EACS.getBlacklistedVehicles()
-    local pedWL      = EACS.getPedWhitelistModels()
-    local objWL      = EACS.getObjectWhitelistModels()
+    local blVehicles = ACS.getBlacklistedVehicles()
+    local pedWL      = ACS.getPedWhitelistModels()
+    local objWL      = ACS.getObjectWhitelistModels()
 
     if Config.Modules.antiPed.enabled and entityType == 1 then
         if not pedWL[model] then
@@ -85,10 +85,10 @@ end)
 Citizen.CreateThread(function()
     while true do
         Wait(10000)
-        if not EACS.active then goto continue end
+        if not ACS.active then goto continue end
 
-        local pedWL = EACS.getPedWhitelistModels()
-        local blVeh = EACS.getBlacklistedVehicles()
+        local pedWL = ACS.getPedWhitelistModels()
+        local blVeh = ACS.getBlacklistedVehicles()
 
         if Config.Modules.antiPed.enabled then
             for _, ped in pairs(GetAllPeds()) do

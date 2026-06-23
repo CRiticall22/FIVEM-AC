@@ -1,15 +1,15 @@
-RegisterCommand("eac_unban", function(src, args)
+RegisterCommand("ac_unban", function(src, args)
     if src ~= 0 and not HasAdminPermission(src) then return end
     local banId = args[1]
     if not banId then
-        Log("WARN", "Usage: eac_unban <BanID>")
+        Log("WARN", "Usage: ac_unban <BanID>")
         return
     end
     RemoveBan(banId)
     Log("INFO", "Unbanned: " .. banId)
 end, true)
 
-RegisterCommand("eac_bans", function(src)
+RegisterCommand("ac_bans", function(src)
     if src ~= 0 and not HasAdminPermission(src) then return end
     local bans = GetAllBans()
     Log("INFO", ("%d active ban(s):"):format(#bans))
@@ -18,32 +18,32 @@ RegisterCommand("eac_bans", function(src)
     end
 end, true)
 
-RegisterCommand("eac_activate", function(src)
+RegisterCommand("ac_activate", function(src)
     if src ~= 0 and not HasAdminPermission(src) then return end
-    EACS.activate()
+    ACS.activate()
     Log("INFO", "Anticheat activated via command")
 end, true)
 
-RegisterCommand("eac_deactivate", function(src)
+RegisterCommand("ac_deactivate", function(src)
     if src ~= 0 and not HasAdminPermission(src) then return end
-    EACS.deactivate()
+    ACS.deactivate()
     Log("INFO", "Anticheat deactivated via command")
 end, true)
 
-RegisterCommand("eac_status", function(src)
+RegisterCommand("ac_status", function(src)
     if src ~= 0 and not HasAdminPermission(src) then return end
     local count = 0
-    for _ in pairs(EACS.connectedPlayers) do count = count + 1 end
+    for _ in pairs(ACS.connectedPlayers) do count = count + 1 end
     Log("INFO", ("Status: %s | Players: %d | Version: %s"):format(
-        EACS.active and "ACTIVE" or "INACTIVE", count, Config.Branding.Version))
+        ACS.active and "ACTIVE" or "INACTIVE", count, Config.Branding.Version))
 end, true)
 
-RegisterCommand("eac_ban", function(src, args)
+RegisterCommand("ac_ban", function(src, args)
     if src ~= 0 and not HasAdminPermission(src) then return end
     local targetId = tonumber(args[1])
     local reason = table.concat(args, " ", 2)
     if not targetId then
-        Log("WARN", "Usage: eac_ban <playerId> <reason>")
+        Log("WARN", "Usage: ac_ban <playerId> <reason>")
         return
     end
     if reason == "" then reason = "Admin ban" end
@@ -51,12 +51,12 @@ RegisterCommand("eac_ban", function(src, args)
     Log("INFO", ("Banned player %d: %s"):format(targetId, reason))
 end, true)
 
-RegisterCommand("eac_kick", function(src, args)
+RegisterCommand("ac_kick", function(src, args)
     if src ~= 0 and not HasAdminPermission(src) then return end
     local targetId = tonumber(args[1])
     local reason = table.concat(args, " ", 2)
     if not targetId then
-        Log("WARN", "Usage: eac_kick <playerId> <reason>")
+        Log("WARN", "Usage: ac_kick <playerId> <reason>")
         return
     end
     if reason == "" then reason = "Admin kick" end
@@ -64,11 +64,11 @@ RegisterCommand("eac_kick", function(src, args)
     Log("INFO", ("Kicked player %d: %s"):format(targetId, reason))
 end, true)
 
-RegisterCommand("eac_info", function(src, args)
+RegisterCommand("ac_info", function(src, args)
     if src ~= 0 and not HasAdminPermission(src) then return end
     local targetId = tonumber(args[1])
     if not targetId then
-        Log("WARN", "Usage: eac_info <playerId>")
+        Log("WARN", "Usage: ac_info <playerId>")
         return
     end
     local info = GetPlayerInfo(targetId)

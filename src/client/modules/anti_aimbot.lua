@@ -3,8 +3,8 @@ local aimbotDetections = 0
 local softAimOn = false
 
 AddEventHandler("entityDamaged", function(entity, attacker, wHash)
-    if not EAC.active or not EAC.config then return end
-    if not EAC.isModuleEnabled(DetectionType.WALL_HACK) then return end
+    if not AC.active or not AC.config then return end
+    if not AC.isModuleEnabled(DetectionType.WALL_HACK) then return end
     local ped = PlayerPedId()
     if entity and attacker and entity ~= attacker and attacker == ped then
         if IsPedShooting(attacker) and IsEntityAPed(entity) then
@@ -13,28 +13,28 @@ AddEventHandler("entityDamaged", function(entity, attacker, wHash)
             if noLOS then CancelEvent() end
             if noLOS and noLOS2 then
                 CancelEvent()
-                EAC.punish(DetectionType.WALL_HACK, "No line of sight to target")
+                AC.punish(DetectionType.WALL_HACK, "No line of sight to target")
             end
-            local hit, _, _, matHash = EAC.raycastMat(1000.0)
+            local hit, _, _, matHash = AC.raycastMat(1000.0)
             if hit and not matHash then
                 CancelEvent()
-                EAC.punish(DetectionType.WALL_HACK, "Shot through wall")
+                AC.punish(DetectionType.WALL_HACK, "Shot through wall")
             end
         end
     end
 end)
 
-EAC.runPeriodically(300, function()
+AC.runPeriodically(300, function()
     local ped = PlayerPedId()
     local coords = GetEntityCoords(ped)
 
-    if not EAC.isModuleEnabled(DetectionType.AIMBOT) then return end
+    if not AC.isModuleEnabled(DetectionType.AIMBOT) then return end
 
-    local hasTarget, targetEnt = GetEntityPlayerIsFreeAimingAt(EAC.playerId)
+    local hasTarget, targetEnt = GetEntityPlayerIsFreeAimingAt(AC.playerId)
     if hasTarget and targetEnt and targetEnt ~= ped then
         if (GetEntitySpeed(targetEnt) >= 1.5 or GetEntitySpeed(ped) >= 1.5)
-           and IsPedArmed(ped, 6) and IsPlayerFreeAiming(EAC.playerId) then
-            local hit, endC, _, _, dist = EAC.raycastSimple(1000.0)
+           and IsPedArmed(ped, 6) and IsPlayerFreeAiming(AC.playerId) then
+            local hit, endC, _, _, dist = AC.raycastSimple(1000.0)
             if hit then
                 local tCoords = GetEntityCoords(targetEnt)
                 local d2t = #(coords - tCoords)
@@ -60,7 +60,7 @@ EAC.runPeriodically(300, function()
                             if hits >= 3 then
                                 aimbotDetections = aimbotDetections + 1
                                 if aimbotDetections > 3 then
-                                    EAC.punish(DetectionType.AIMBOT, "Locked on to entity while aiming")
+                                    AC.punish(DetectionType.AIMBOT, "Locked on to entity while aiming")
                                     aimbotDetections = 0
                                 end
                                 hits = 0
@@ -76,19 +76,19 @@ EAC.runPeriodically(300, function()
     if GetScriptTaskStatus(ped, 3641635208) == 1
        or GetScriptTaskStatus(ped, 167901368) == 1
        or GetScriptTaskStatus(ped, 167901369) == 1 then
-        EAC.punish(DetectionType.AIMBOT, "Aimbot task detected")
+        AC.punish(DetectionType.AIMBOT, "Aimbot task detected")
     end
 end, "AntiAimbot")
 
-EAC.runPeriodically(0, function()
-    if not EAC.isModuleEnabled(DetectionType.SOFT_AIM) then return end
+AC.runPeriodically(0, function()
+    if not AC.isModuleEnabled(DetectionType.SOFT_AIM) then return end
     local ped = PlayerPedId()
     if IsPedArmed(ped, 1) then
         softAimOn = true
-        SetPlayerLockonRangeOverride(EAC.playerId, -1.0)
+        SetPlayerLockonRangeOverride(AC.playerId, -1.0)
     elseif softAimOn then
         softAimOn = false
-        SetPlayerLockonRangeOverride(EAC.playerId, 0.0)
+        SetPlayerLockonRangeOverride(AC.playerId, 0.0)
         Wait(100)
     end
 end, "AntiSoftAim")

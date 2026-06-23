@@ -28,15 +28,15 @@ exports("isPlayerWhitelisted", function(src)
 end)
 
 exports("isActive", function()
-    return EACS.active
+    return ACS.active
 end)
 
 exports("activate", function()
-    EACS.activate()
+    ACS.activate()
 end)
 
 exports("deactivate", function()
-    EACS.deactivate()
+    ACS.deactivate()
 end)
 
 exports("getPlayerHeartbeat", function(src)
@@ -45,7 +45,7 @@ end)
 
 exports("getConnectedPlayers", function()
     local list = {}
-    for pid, _ in pairs(EACS.connectedPlayers) do
+    for pid, _ in pairs(ACS.connectedPlayers) do
         list[#list + 1] = pid
     end
     return list

@@ -2,7 +2,7 @@ local tazerCounts = {}
 local clearTaskCounts = {}
 
 AddEventHandler("weaponDamageEvent", function(src, data)
-    if not EACS.active then return end
+    if not ACS.active then return end
 
     if Config.Modules.antiMenu.enabled then
         if data.silenced and data.weaponDamage == 0 and
@@ -28,7 +28,7 @@ AddEventHandler("weaponDamageEvent", function(src, data)
 end)
 
 AddEventHandler("clearPedTasksEvent", function(src)
-    if not EACS.active then return end
+    if not ACS.active then return end
     if not Config.Modules.antiPedTasks.enabled then return end
     if not clearTaskCounts[src] then
         clearTaskCounts[src] = { count = 0, time = os.time() }
@@ -46,14 +46,14 @@ end)
 
 AddEventHandler(EncodeEvent("AC:checkJumping"), function()
     local src = source
-    if not EACS.active then return end
+    if not ACS.active then return end
     if IsPlayerUsingSuperJump(src) then
         PunishPlayer(src, DetectionType.SUPER_JUMP, "Server confirmed super jump")
     end
 end)
 
 AddEventHandler(EncodeEvent("AC:punishFromClient"), function(reason, details)
-    if not EACS.active then return end
+    if not ACS.active then return end
     PunishPlayer(source, reason, details)
 end)
 

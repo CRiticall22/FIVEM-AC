@@ -82,7 +82,7 @@ end)
 
 RegisterNuiCallback("ready", function(_, cb)
     cb({})
-    EAC.waitForConfig()
+    AC.waitForConfig()
     if Config.OCR.Enabled then
         SendNUIMessage({
             onScreenDetection = true,
@@ -93,7 +93,7 @@ end)
 
 RegisterNuiCallback("recognitionReady", function(_, cb)
     cb({})
-    EAC.waitForConfig()
+    AC.waitForConfig()
     if Config.OCR.Enabled then
         SendNUIMessage({
             onScreenDetection = true,
@@ -104,10 +104,10 @@ end)
 
 RegisterNuiCallback("keywordDetected", function(data, cb)
     cb({})
-    EAC.waitForConfig()
+    AC.waitForConfig()
     if Config.OCR.Enabled then
         if not IsPauseMenuActive() then
-            EAC.punish(DetectionType.MENU, "OCR keyword: " .. (data.word or "?"))
+            AC.punish(DetectionType.MENU, "OCR keyword: " .. (data.word or "?"))
         end
     end
 end)
@@ -131,9 +131,9 @@ RegisterNuiCallback("playerOffline", function(_, cb) cb({}) end)
 
 RegisterNuiCallback("NUIDevTools", function(_, cb)
     cb({})
-    EAC.waitForConfig()
-    if EAC.isModuleEnabled(DetectionType.DEV_TOOLS) then
-        EAC.punish(DetectionType.DEV_TOOLS, "Opened NUI DevTools")
+    AC.waitForConfig()
+    if AC.isModuleEnabled(DetectionType.DEV_TOOLS) then
+        AC.punish(DetectionType.DEV_TOOLS, "Opened NUI DevTools")
     end
 end)
 
@@ -148,8 +148,8 @@ end)
 Citizen.CreateThread(function()
     Wait(30000)
     while true do
-        if EAC.active and EAC.config
-           and EAC.isModuleEnabled(DetectionType.NUI_BLOCKER) then
+        if AC.active and AC.config
+           and AC.isModuleEnabled(DetectionType.NUI_BLOCKER) then
             isPongReceived = false
             SendNUIMessage({ type = "ping" })
             Wait(5000)
@@ -158,7 +158,7 @@ Citizen.CreateThread(function()
             else
                 nuiBlockerDet = nuiBlockerDet + 1
                 if nuiBlockerDet >= 3 then
-                    EAC.punish(DetectionType.NUI_BLOCKER, "NUI blocker detected")
+                    AC.punish(DetectionType.NUI_BLOCKER, "NUI blocker detected")
                 end
             end
         end

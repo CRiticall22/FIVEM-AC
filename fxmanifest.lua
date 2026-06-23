@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-author 'ElectronAC'
+author '2F4R'
 description 'Advanced FiveM Anticheat — self-hosted, modular, no external API required.'
 version '2.0.0'
 lua54 'yes'

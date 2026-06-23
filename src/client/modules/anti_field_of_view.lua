@@ -1,6 +1,6 @@
 local fovViolations = 0
 
-EAC.runPeriodically(2000, function()
+AC.runPeriodically(2000, function()
     local ped = PlayerPedId()
 
     if not IsPedArmed(ped, 6) then
@@ -8,7 +8,7 @@ EAC.runPeriodically(2000, function()
         return
     end
 
-    if not IsPlayerFreeAiming(EAC.playerId) then return end
+    if not IsPlayerFreeAiming(AC.playerId) then return end
 
     local fov = GetGameplayCamFov()
 
@@ -25,7 +25,7 @@ EAC.runPeriodically(2000, function()
             fovViolations = fovViolations + 1
             if fovViolations >= 3 then
                 fovViolations = 0
-                EAC.punish(DetectionType.AIMBOT, "Suspicious FOV while aiming: " .. math.floor(fov))
+                AC.punish(DetectionType.AIMBOT, "Suspicious FOV while aiming: " .. math.floor(fov))
             end
         end
     else
