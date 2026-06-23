@@ -50,6 +50,8 @@ client_scripts {
     "src/client/modules/combat_log.lua",
     "src/client/modules/physics_validator.lua",
     "src/client/modules/macro_detection.lua",
+    "src/client/modules/trigger_monitor.lua",
+    "src/client/modules/anti_dump_client.lua",
 }
 
 server_scripts {
