@@ -53,7 +53,7 @@ RegisterCommand("report", function(src, args)
     Log("INFO", ("[REPORT] #%d: %s reported %s — %s"):format(report.id, reporterName, targetName, reason))
 
     for adminPid, _ in pairs(ACS.connectedPlayers) do
-        if IsPlayerAceAllowed(tostring(adminPid), Config.Branding.AcePerm) then
+        if IsPlayerAceAllowed(tostring(adminPid), Config.Whitelist.AcePerm) then
             TriggerClientEvent("chat:addMessage", adminPid, {
                 args = { "2F4R REPORT", ("#%d: %s → %s: %s"):format(report.id, reporterName, targetName, reason) },
                 color = { 255, 165, 0 },
@@ -68,7 +68,7 @@ RegisterCommand("report", function(src, args)
 end, false)
 
 RegisterCommand("ac_reports", function(src)
-    if src ~= 0 and not IsPlayerAceAllowed(tostring(src), Config.Branding.AcePerm) then return end
+    if src ~= 0 and not IsPlayerAceAllowed(tostring(src), Config.Whitelist.AcePerm) then return end
 
     local pending = {}
     for _, r in ipairs(reports) do
@@ -94,7 +94,7 @@ RegisterCommand("ac_reports", function(src)
 end, false)
 
 RegisterCommand("ac_resolve", function(src, args)
-    if src ~= 0 and not IsPlayerAceAllowed(tostring(src), Config.Branding.AcePerm) then return end
+    if src ~= 0 and not IsPlayerAceAllowed(tostring(src), Config.Whitelist.AcePerm) then return end
 
     local reportId = tonumber(args[1])
     if not reportId then

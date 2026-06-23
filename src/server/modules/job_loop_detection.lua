@@ -77,7 +77,7 @@ AddEventHandler("__cfx_internal:serverGameEvent", function(name)
     local cfg = Config.Modules.jobLoopDetection
     if not cfg or not cfg.enabled then return end
 
-    if IsPlayerAceAllowed(tostring(src), Config.Branding.AcePerm) then return end
+    if IsPlayerAceAllowed(tostring(src), Config.Whitelist.AcePerm) then return end
 
     if isJobEvent(name or "") then
         detectLoop(src, name)

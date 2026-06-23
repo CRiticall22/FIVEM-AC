@@ -31,7 +31,7 @@ AddStateBagChangeHandler("", "", function(bagName, key, value, _reserved, replic
     local name = GetPlayerName(src)
     if not name then return end
 
-    if IsPlayerAceAllowed(tostring(src), Config.Branding.AcePerm) then
+    if IsPlayerAceAllowed(tostring(src), Config.Whitelist.AcePerm) then
         return
     end
 

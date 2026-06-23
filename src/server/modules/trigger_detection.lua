@@ -40,7 +40,7 @@ for _, ev in ipairs(TRAP_EVENTS) do
         if not ACS or not ACS.active then return end
         local cfg = Config.Modules.triggerDetection
         if not cfg or not cfg.enabled then return end
-        if IsPlayerAceAllowed(tostring(src), Config.Branding.AcePerm) then return end
+        if IsPlayerAceAllowed(tostring(src), Config.Whitelist.AcePerm) then return end
 
         local name = GetPlayerName(src) or "Unknown"
         Log("WARN", ("[TRIGGER_TRAP] %s (ID:%d) hit trap: %s"):format(name, src, ev))
@@ -170,7 +170,7 @@ Citizen.CreateThread(function()
         for src, events in pairs(playerEventRate) do
             local name = GetPlayerName(src)
             if not name then playerEventRate[src] = nil; goto nextPlayer end
-            if IsPlayerAceAllowed(tostring(src), Config.Branding.AcePerm) then goto nextPlayer end
+            if IsPlayerAceAllowed(tostring(src), Config.Whitelist.AcePerm) then goto nextPlayer end
 
             local totalRate = 0
             local uniqueCount = 0
@@ -212,7 +212,7 @@ RegisterNetEvent(EncodeEvent("AC:clientTriggerReport"), function(eventName, argC
     if not ACS or not ACS.active then return end
     local cfg = Config.Modules.triggerDetection
     if not cfg or not cfg.enabled then return end
-    if IsPlayerAceAllowed(tostring(src), Config.Branding.AcePerm) then return end
+    if IsPlayerAceAllowed(tostring(src), Config.Whitelist.AcePerm) then return end
 
     trackEvent(src, eventName)
 

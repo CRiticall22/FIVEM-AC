@@ -51,7 +51,7 @@ AddEventHandler("playerDropped", function(reason)
         }
 
         for adminPid, _ in pairs(ACS.connectedPlayers) do
-            if IsPlayerAceAllowed(tostring(adminPid), Config.Branding.AcePerm) then
+            if IsPlayerAceAllowed(tostring(adminPid), Config.Whitelist.AcePerm) then
                 TriggerClientEvent(EncodeEvent("AC:detectionNotify"), adminPid, webhookData)
             end
         end

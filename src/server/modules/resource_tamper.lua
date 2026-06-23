@@ -59,7 +59,7 @@ end
 
 local function alertAdmins(msg)
     for adminPid, _ in pairs(ACS.connectedPlayers) do
-        if IsPlayerAceAllowed(tostring(adminPid), Config.Branding.AcePerm) then
+        if IsPlayerAceAllowed(tostring(adminPid), Config.Whitelist.AcePerm) then
             TriggerClientEvent(EncodeEvent("AC:detectionNotify"), adminPid, {
                 player = "SYSTEM",
                 reason = msg,

@@ -39,7 +39,7 @@ local function checkIP(src, ip)
             elseif cfg.action == "FLAG" then
                 if AddThreatScore then AddThreatScore(src, "vpnDetected", 30) end
                 for adminPid, _ in pairs(ACS.connectedPlayers) do
-                    if IsPlayerAceAllowed(tostring(adminPid), Config.Branding.AcePerm) then
+                    if IsPlayerAceAllowed(tostring(adminPid), Config.Whitelist.AcePerm) then
                         TriggerClientEvent(EncodeEvent("AC:detectionNotify"), adminPid, {
                             player = name,
                             reason = "VPN/Proxy detected — ISP: " .. (data.isp or "?"),

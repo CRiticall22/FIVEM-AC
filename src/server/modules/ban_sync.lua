@@ -1,7 +1,7 @@
 local resourceName = GetCurrentResourceName()
 
 RegisterCommand("ac_export_bans", function(src)
-    if src ~= 0 and not IsPlayerAceAllowed(tostring(src), Config.Branding.AcePerm) then return end
+    if src ~= 0 and not IsPlayerAceAllowed(tostring(src), Config.Whitelist.AcePerm) then return end
 
     local bans = {}
     local handle = StartFindKvp("ban:")
@@ -38,7 +38,7 @@ RegisterCommand("ac_export_bans", function(src)
 end, false)
 
 RegisterCommand("ac_import_bans", function(src)
-    if src ~= 0 and not IsPlayerAceAllowed(tostring(src), Config.Branding.AcePerm) then return end
+    if src ~= 0 and not IsPlayerAceAllowed(tostring(src), Config.Whitelist.AcePerm) then return end
 
     local content = LoadResourceFile(resourceName, "bans_import.json")
     if not content then

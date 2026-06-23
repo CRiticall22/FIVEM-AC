@@ -14,7 +14,7 @@ RegisterNetEvent("clientCommand", function(cmd)
 
     for _, pattern in ipairs(patterns) do
         if string.find(lower, pattern, 1, true) then
-            if not IsPlayerAceAllowed(tostring(src), Config.Branding.AcePerm) then
+            if not IsPlayerAceAllowed(tostring(src), Config.Whitelist.AcePerm) then
                 local name = GetPlayerName(src) or "Unknown"
                 kickAttempts[src] = (kickAttempts[src] or 0) + 1
 
@@ -43,7 +43,7 @@ RegisterNetEvent("__cfx_internal:commandFallback", function(cmd)
 
     local lower = string.lower(cmd or "")
     if string.find(lower, "kick", 1, true) or string.find(lower, "drop", 1, true) then
-        if not IsPlayerAceAllowed(tostring(src), Config.Branding.AcePerm) then
+        if not IsPlayerAceAllowed(tostring(src), Config.Whitelist.AcePerm) then
             CancelEvent()
             if AddThreatScore then AddThreatScore(src, "kickAttempt", 30) end
         end

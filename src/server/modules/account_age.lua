@@ -51,7 +51,7 @@ AddEventHandler("playerConnecting", function(name, _, deferrals)
                     if AddThreatScore then AddThreatScore(src, "newAccount", 20) end
 
                     for adminPid, _ in pairs(ACS.connectedPlayers) do
-                        if IsPlayerAceAllowed(tostring(adminPid), Config.Branding.AcePerm) then
+                        if IsPlayerAceAllowed(tostring(adminPid), Config.Whitelist.AcePerm) then
                             TriggerClientEvent(EncodeEvent("AC:detectionNotify"), adminPid, {
                                 player = name,
                                 reason = ("New Discord account: %d days old"):format(ageDays),

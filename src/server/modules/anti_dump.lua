@@ -151,7 +151,7 @@ AddEventHandler("playerDropped", function(reason)
         Log("WARN", ("[ANTI_DUMP] %s (IP:%s) — %s (attempt #%d)"):format(name, ip, suspectReason, attempts))
 
         for adminPid, _ in pairs(ACS.connectedPlayers) do
-            if IsPlayerAceAllowed(tostring(adminPid), Config.Branding.AcePerm) then
+            if IsPlayerAceAllowed(tostring(adminPid), Config.Whitelist.AcePerm) then
                 TriggerClientEvent(EncodeEvent("AC:detectionNotify"), adminPid, {
                     player = name,
                     reason = ("Possible dump: %s (attempt #%d, IP: %s)"):format(suspectReason, attempts, ip),

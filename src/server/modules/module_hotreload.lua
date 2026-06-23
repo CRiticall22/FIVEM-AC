@@ -1,6 +1,6 @@
 RegisterNetEvent(EncodeEvent("AC:toggleModule"), function(data)
     local src = source
-    if not IsPlayerAceAllowed(tostring(src), Config.Branding.AcePerm) then return end
+    if not IsPlayerAceAllowed(tostring(src), Config.Whitelist.AcePerm) then return end
     if not data or not data.module then return end
 
     local moduleName = data.module
@@ -25,7 +25,7 @@ end)
 
 RegisterNetEvent(EncodeEvent("AC:getModuleStates"), function()
     local src = source
-    if not IsPlayerAceAllowed(tostring(src), Config.Branding.AcePerm) then return end
+    if not IsPlayerAceAllowed(tostring(src), Config.Whitelist.AcePerm) then return end
 
     local states = {}
     for name, cfg in pairs(Config.Modules) do
