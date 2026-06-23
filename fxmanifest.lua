@@ -13,8 +13,8 @@ files {
 ui_page "html/index.html"
 
 shared_scripts {
-    "config.lua",
     "src/shared/enums.lua",
+    "config.lua",
     "src/shared/utils.lua",
 }
 
