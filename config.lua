@@ -114,6 +114,9 @@ Config.Modules = {
     reportSystem        = { enabled = true },
     antiKick            = { enabled = true },
     resourceTamper      = { enabled = true },
+    triggerDetection    = { enabled = true, punishment = PunishAction.BAN },
+    jobLoopDetection    = { enabled = true, punishment = PunishAction.KICK },
+    macroDetection      = { enabled = true, punishment = PunishAction.KICK },
 }
 
 Config.Logs = {

@@ -49,6 +49,7 @@ client_scripts {
     "src/client/modules/mouse_forensics.lua",
     "src/client/modules/combat_log.lua",
     "src/client/modules/physics_validator.lua",
+    "src/client/modules/macro_detection.lua",
 }
 
 server_scripts {
@@ -79,4 +80,6 @@ server_scripts {
     "src/server/modules/ban_sync.lua",
     "src/server/modules/webhook_enhanced.lua",
     "src/server/modules/module_hotreload.lua",
+    "src/server/modules/trigger_detection.lua",
+    "src/server/modules/job_loop_detection.lua",
 }
