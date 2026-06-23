@@ -1,16 +1,32 @@
 local resourceName = GetCurrentResourceName()
 local eventCache = {}
 
+local _bootSalt = nil
+local function getBootSalt()
+    if _bootSalt then return _bootSalt end
+    local raw = GetConvar("ac_boot_salt", "")
+    if raw == "" then
+        local t = os.time and os.time() or GetGameTimer()
+        raw = tostring(t) .. tostring(math.random(100000, 999999))
+        if SetConvar then
+            SetConvar("ac_boot_salt", raw)
+        end
+    end
+    _bootSalt = raw
+    return _bootSalt
+end
+
 function EncodeEvent(eventName)
     if eventCache[eventName] then
         return eventCache[eventName]
     end
 
-    local combined = eventName .. resourceName
+    local salt = getBootSalt()
+    local combined = eventName .. resourceName .. salt
     local seed = 0
     for i = 1, #combined do
         local b = string.byte(combined, i)
-        seed = seed + b * i + b
+        seed = ((seed * 31) + b) % 2147483647
     end
 
     math.randomseed(seed)

@@ -1,4 +1,4 @@
-local KVP_PREFIX = "eac_ban_"
+local KVP_PREFIX = "ac_ban_"
 local punishCache = {}
 
 local _nativeGetPlayerIdentifiers = GetPlayerIdentifiers
@@ -261,6 +261,14 @@ function PunishPlayer(src, module, details)
     end
 
     if AddThreatScore then AddThreatScore(src, module) end
+
+    if TakeEvidenceScreenshot then
+        TakeEvidenceScreenshot(src, module, details)
+    end
+
+    if SendEnhancedWebhook then
+        SendEnhancedWebhook(cfg.punishment or "WARN", playerName, src, module, details)
+    end
 
     if IsShadowMode and IsShadowMode() then
         if LogShadowDetection then LogShadowDetection(src, module, details) end

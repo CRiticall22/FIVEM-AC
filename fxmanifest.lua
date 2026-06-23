@@ -45,6 +45,10 @@ client_scripts {
     "src/client/modules/anti_honeypot.lua",
     "src/client/modules/anti_canary.lua",
     "src/client/modules/anti_integrity.lua",
+    "src/client/modules/replay_buffer.lua",
+    "src/client/modules/mouse_forensics.lua",
+    "src/client/modules/combat_log.lua",
+    "src/client/modules/physics_validator.lua",
 }
 
 server_scripts {
@@ -64,4 +68,15 @@ server_scripts {
     "src/server/modules/threat_score.lua",
     "src/server/modules/shadow_mode.lua",
     "src/server/modules/cascading_ban.lua",
+    "src/server/modules/vpn_detection.lua",
+    "src/server/modules/account_age.lua",
+    "src/server/modules/statebag_firewall.lua",
+    "src/server/modules/combat_log_server.lua",
+    "src/server/modules/antikick.lua",
+    "src/server/modules/resource_tamper.lua",
+    "src/server/modules/report_system.lua",
+    "src/server/modules/auto_screenshot.lua",
+    "src/server/modules/ban_sync.lua",
+    "src/server/modules/webhook_enhanced.lua",
+    "src/server/modules/module_hotreload.lua",
 }

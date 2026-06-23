@@ -102,6 +102,18 @@ Config.Modules = {
     antiIntegrity       = { enabled = true },
     cascadingBan        = { enabled = true, autoBan = false },
     shadowMode          = { enabled = false },
+
+    replayBuffer        = { enabled = true },
+    mouseForensics      = { enabled = true },
+    combatLog           = { enabled = true, maxLogs = 3 },
+    physicsValidator    = { enabled = true },
+    vpnDetection        = { enabled = true, action = "FLAG" },
+    accountAge          = { enabled = true, minDiscordDays = 14, requireSteam = false },
+    stateBagFirewall    = { enabled = true },
+    autoScreenshot      = { enabled = true, webhookUrl = "" },
+    reportSystem        = { enabled = true },
+    antiKick            = { enabled = true },
+    resourceTamper      = { enabled = true },
 }
 
 Config.Logs = {
