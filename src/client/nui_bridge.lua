@@ -3,13 +3,20 @@ local menuReady = false
 local espActive = false
 
 RegisterNetEvent("Anticheat:setMenuOpen", function(open)
+    menuOpen = open
     SendNUIMessage({ menuOpen = open })
+    SetNuiFocus(open, open)
+    if open then
+        TriggerServerEvent(EncodeEvent("AC:getNuiData"))
+    end
 end)
 
 RegisterCommand("2f4r", function()
     if not menuReady then return end
     if menuOpen then
+        menuOpen = false
         SendNUIMessage({ menuOpen = false })
+        SetNuiFocus(false, false)
     else
         TriggerServerEvent("Anticheat:openMenu")
     end
@@ -18,10 +25,10 @@ end)
 RegisterNuiCallback("menuOpen", function(data, cb)
     cb({})
     menuOpen = data.menuOpen
+    SetNuiFocus(menuOpen, menuOpen)
     if menuOpen then
         TriggerServerEvent(EncodeEvent("AC:getNuiData"))
     end
-    SetNuiFocus(menuOpen, menuOpen)
 end)
 
 RegisterNuiCallback("menuReady", function(_, cb)
