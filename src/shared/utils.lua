@@ -8,8 +8,9 @@ local function getBootSalt()
     if raw == "" then
         local t = (type(os) == "table" and os.time) and os.time() or GetGameTimer()
         raw = tostring(t) .. tostring(math.random(100000, 999999))
-        if SetConvar then
-            SetConvar("ac_boot_salt", raw)
+        local setter = SetConvarReplicated or SetConvar
+        if setter then
+            setter("ac_boot_salt", raw)
         end
     end
     _bootSalt = raw
