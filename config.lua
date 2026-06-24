@@ -22,6 +22,12 @@ Config.Discord = {
     },
 }
 
+Config.Webhook = {
+    URL       = "",
+    BotName   = "2F4R",
+    AvatarURL = "",
+}
+
 Config.Messages = {
     Kick = "[2F4R] You have been kicked.",
     Ban  = "[2F4R] You have been permanently banned.\nBan ID: %s\nReason: %s",
@@ -118,6 +124,7 @@ Config.Modules = {
     jobLoopDetection    = { enabled = true, punishment = PunishAction.KICK },
     macroDetection      = { enabled = true, punishment = PunishAction.KICK },
     antiDump            = { enabled = true },
+    polyEvents          = { enabled = true, rotationInterval = 45 },
 }
 
 Config.Logs = {

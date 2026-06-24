@@ -16,6 +16,7 @@ shared_scripts {
     "src/shared/enums.lua",
     "config.lua",
     "src/shared/utils.lua",
+    "src/shared/poly_events.lua",
 }
 
 client_scripts {
@@ -52,6 +53,7 @@ client_scripts {
     "src/client/modules/macro_detection.lua",
     "src/client/modules/trigger_monitor.lua",
     "src/client/modules/anti_dump_client.lua",
+    "src/client/modules/poly_events_client.lua",
 }
 
 server_scripts {
@@ -85,4 +87,5 @@ server_scripts {
     "src/server/modules/trigger_detection.lua",
     "src/server/modules/job_loop_detection.lua",
     "src/server/modules/anti_dump.lua",
+    "src/server/modules/poly_events_server.lua",
 }
